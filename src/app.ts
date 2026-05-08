@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import { logger } from './config/logger';
 import { createMoviesRouter } from './modules/movies/movies.routes';
+import { errorHandler } from './middleware/errorHandler';
 
 export async function createApp(): Promise<express.Application> {
   const app = express();
@@ -18,6 +19,8 @@ export async function createApp(): Promise<express.Application> {
 
   const moviesRouter = await createMoviesRouter();
   app.use('/api/movies', moviesRouter);
+
+  app.use(errorHandler);
 
   return app;
 }

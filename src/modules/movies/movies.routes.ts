@@ -12,6 +12,8 @@ export async function createMoviesRouter(): Promise<Router> {
 
   const router = Router();
   router.get('/', controller.listAll);
+  router.get('/id/:movieId', controller.getDetailByMovieId);
+  router.get('/:imdbId', controller.getDetail);
 
   return router;
 }

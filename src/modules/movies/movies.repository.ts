@@ -45,5 +45,13 @@ export function makeMoviesRepository(db: Database) {
 
       return { rows, total: countRow?.total ?? 0 };
     },
+
+    findByImdbId: async (imdbId: string): Promise<MovieRow | undefined> => {
+      return db.get<MovieRow>('SELECT * FROM movies WHERE imdbId = ?', imdbId);
+    },
+
+    findByMovieId: async (movieId: number): Promise<MovieRow | undefined> => {
+      return db.get<MovieRow>('SELECT * FROM movies WHERE movieId = ?', movieId);
+    },
   };
 }
