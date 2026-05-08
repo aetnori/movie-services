@@ -13,10 +13,16 @@ import { makeRatingsService } from '../ratings/ratings.service';
  *     summary: List movies
  *     tags: [Movies]
  *     parameters:
- *       - { in: query, name: page, schema: { type: integer, default: 1 } }
- *       - { in: query, name: year, schema: { type: integer, example: 2000 } }
- *       - { in: query, name: genre, schema: { type: string, example: Drama } }
- *       - { in: query, name: order, schema: { type: string, enum: [asc, desc], default: asc } }
+ *       - { in: query, name: page, schema: { type: integer, default: 1, minimum: 1, maximum: 10000 } }
+ *       - in: query
+ *         name: year
+ *         description: 'Filter by release year (1100–present). Use the API directly with an empty string to return movies with no release date (not supported in Swagger UI).'
+ *         schema: { type: string, example: '2000' }
+ *       - in: query
+ *         name: genre
+ *         description: 'Filter by genre (max 100 chars). Use the API directly with an empty string to return movies with no genre (not supported in Swagger UI).'
+ *         schema: { type: string, example: 'Drama' }
+ *       - { in: query, name: order, description: 'Sort direction when filtering by year.', schema: { type: string, enum: [asc, desc], default: asc } }
  *     responses:
  *       200:
  *         content:
