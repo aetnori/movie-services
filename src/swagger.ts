@@ -1,6 +1,5 @@
 // Defines the OpenAPI spec for Swagger UI. Component schemas live here, endpoint docs live in movies.routes.ts.
 import swaggerJsdoc from 'swagger-jsdoc';
-import { env } from './config/env';
 
 const options: swaggerJsdoc.Options = {
   definition: {
@@ -10,12 +9,6 @@ const options: swaggerJsdoc.Options = {
       version: '1.0.0',
       description: 'REST API for browsing movies — Node.js, TypeScript, SQLite',
     },
-    servers: [
-      {
-        url: `http://localhost:${env.PORT}`,
-        description: env.NODE_ENV === 'production' ? 'Production' : 'Development',
-      },
-    ],
     tags: [
       {
         name: 'Movies',
@@ -67,7 +60,10 @@ const options: swaggerJsdoc.Options = {
       },
     },
   },
-  apis: ['./src/modules/**/*.routes.ts'],
+  apis: [
+    './src/modules/**/*.routes.ts',
+    './dist/modules/**/*.routes.js',
+  ],
 };
 
 export const swaggerSpec = swaggerJsdoc(options);
