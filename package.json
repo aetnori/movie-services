@@ -1,5 +1,5 @@
 {
-  "name": "movies-repo",
+  "name": "movie-services",
   "version": "1.0.0",
   "description": "Node.js REST API with Swagger, TypeScript, Express, SQLite",
   "main": "dist/server.js",
