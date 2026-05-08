@@ -1,10 +1,12 @@
 import { makeMoviesRepository } from './movies.repository';
+import { makeRatingsService } from '../ratings/ratings.service';
 import { AppError } from '../../middleware/errorHandler';
 import { MovieRow, MovieListItem, MovieDetail, PaginatedResult, GenreEntry, ProductionCompany } from './movies.types';
 
 const PAGE_SIZE = 50;
 
 type MoviesRepo = ReturnType<typeof makeMoviesRepository>;
+type RatingsService = ReturnType<typeof makeRatingsService>;
 
 function formatBudget(budget: number | null): string {
   if (budget === null) return '$0';
@@ -30,7 +32,7 @@ function toListItem(row: MovieRow): MovieListItem {
   };
 }
 
-function toDetail(row: MovieRow): MovieDetail {
+function toDetail(row: MovieRow, averageRating: number | null): MovieDetail {
   return {
     imdbId: row.imdbId,
     title: row.title,
@@ -38,14 +40,14 @@ function toDetail(row: MovieRow): MovieDetail {
     releaseDate: row.releaseDate,
     budget: formatBudget(row.budget),
     runtime: row.runtime,
-    averageRating: null,
+    averageRating,
     genres: parseJson<GenreEntry[]>(row.genres, []).map((g) => g.name),
     originalLanguage: row.language,
     productionCompanies: parseJson<ProductionCompany[]>(row.productionCompanies, []).map((c) => c.name),
   };
 }
 
-export function makeMoviesService(repo: MoviesRepo) {
+export function makeMoviesService(repo: MoviesRepo, ratingsService: RatingsService) {
   return {
     listAll: async (
       page: number,
@@ -58,13 +60,15 @@ export function makeMoviesService(repo: MoviesRepo) {
     getDetail: async (imdbId: string): Promise<MovieDetail> => {
       const row = await repo.findByImdbId(imdbId);
       if (!row) throw new AppError(404, `Movie ${imdbId} not found`);
-      return toDetail(row);
+      const averageRating = await ratingsService.getAvgRatingForMovie(row.movieId);
+      return toDetail(row, averageRating);
     },
 
     getDetailByMovieId: async (movieId: number): Promise<MovieDetail> => {
       const row = await repo.findByMovieId(movieId);
       if (!row) throw new AppError(404, `Movie ${movieId} not found`);
-      return toDetail(row);
+      const averageRating = await ratingsService.getAvgRatingForMovie(row.movieId);
+      return toDetail(row, averageRating);
     },
   };
 }
