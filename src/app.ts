@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
 import { logger } from './config/logger';
+import { createMoviesRouter } from './modules/movies/movies.routes';
 
 export async function createApp(): Promise<express.Application> {
   const app = express();
@@ -14,6 +15,9 @@ export async function createApp(): Promise<express.Application> {
   app.get('/health', (_req: Request, res: Response) => {
     res.json({ status: 'ok', timestamp: new Date().toISOString() });
   });
+
+  const moviesRouter = await createMoviesRouter();
+  app.use('/api/movies', moviesRouter);
 
   return app;
 }
