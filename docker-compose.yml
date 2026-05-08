@@ -10,5 +10,8 @@ services:
       MOVIES_DB_PATH: /data/movies.db
       RATINGS_DB_PATH: /data/ratings.db
     volumes:
-      - ./src/db:/data:ro
+      - db-data:/data
     restart: unless-stopped
+
+volumes:
+  db-data:

@@ -1,0 +1,197 @@
+{
+  "info": {
+    "name": "Movies API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "Health check",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["health"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Movies",
+      "item": [
+        {
+          "name": "List all movies (page 1)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/movies?page=1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "movies"],
+              "query": [{ "key": "page", "value": "1" }]
+            }
+          }
+        },
+        {
+          "name": "List all movies (page 2)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/movies?page=2",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "movies"],
+              "query": [{ "key": "page", "value": "2" }]
+            }
+          }
+        },
+        {
+          "name": "Movies by year (asc)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/movies?page=1&year=2000&order=asc",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "movies"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "year", "value": "2000" },
+                { "key": "order", "value": "asc" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Movies by year (desc)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/movies?page=1&year=2000&order=desc",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "movies"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "year", "value": "2000" },
+                { "key": "order", "value": "desc" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Movies with no year",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/movies?page=1&year=",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "movies"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "year", "value": "" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Movies by genre (Drama)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/movies?page=1&genre=Drama",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "movies"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "genre", "value": "Drama" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Movies by genre (Comedy)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/movies?page=1&genre=Comedy",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "movies"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "genre", "value": "Comedy" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Movies with no genre",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/movies?page=1&genre=",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "movies"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "genre", "value": "" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Movies by genre (unknown)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/movies?genre=NotAGenre",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "movies"],
+              "query": [{ "key": "genre", "value": "NotAGenre" }]
+            }
+          }
+        },
+        {
+          "name": "Movie detail by IMDb ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/movies/tt0094675",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "movies", "tt0094675"]
+            }
+          }
+        },
+        {
+          "name": "Movie detail by movieId",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/movies/id/862",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "movies", "id", "862"]
+            }
+          }
+        },
+        {
+          "name": "Movie detail (not found)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/movies/tt0000000",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "movies", "tt0000000"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
