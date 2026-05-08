@@ -1,0 +1,14 @@
+services:
+  api:
+    build: .
+    ports:
+      - '3000:3000'
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      LOG_LEVEL: info
+      MOVIES_DB_PATH: /data/movies.db
+      RATINGS_DB_PATH: /data/ratings.db
+    volumes:
+      - ./src/db:/data:ro
+    restart: unless-stopped

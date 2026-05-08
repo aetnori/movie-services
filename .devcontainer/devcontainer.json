@@ -1,0 +1,22 @@
+{
+  "name": "movies-repo",
+  "image": "mcr.microsoft.com/devcontainers/node:24",
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "ms-vscode.vscode-typescript-next",
+        "rangav.vscode-thunder-client",
+        "42crunch.vscode-openapi"
+      ],
+      "settings": {
+        "editor.formatOnSave": false
+      }
+    }
+  },
+
+  "forwardPorts": [3000],
+  "postCreateCommand": "npm install",
+  "remoteUser": "node"
+}
