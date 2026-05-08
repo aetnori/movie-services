@@ -8,6 +8,7 @@ async function main(): Promise<void> {
 
   const server = app.listen(env.PORT, () => {
     logger.info(`Server live on port ${env.PORT} - [${env.NODE_ENV}]`);
+    logger.info(`Swagger UI: http://localhost:${env.PORT}/api-docs`);
   });
 
   async function shutdown(signal: string): Promise<void> {

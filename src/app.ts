@@ -1,4 +1,6 @@
 import express, { Request, Response } from 'express';
+import swaggerUi from 'swagger-ui-express';
+import { swaggerSpec } from './swagger';
 import { logger } from './config/logger';
 import { createMoviesRouter } from './modules/movies/movies.routes';
 import { errorHandler } from './middleware/errorHandler';
@@ -15,6 +17,11 @@ export async function createApp(): Promise<express.Application> {
 
   app.get('/health', (_req: Request, res: Response) => {
     res.json({ status: 'ok', timestamp: new Date().toISOString() });
+  });
+
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+  app.get('/api-docs.json', (_req: Request, res: Response) => {
+    res.json(swaggerSpec);
   });
 
   const moviesRouter = await createMoviesRouter();
